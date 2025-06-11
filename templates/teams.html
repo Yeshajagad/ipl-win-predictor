@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPL Teams</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    /* Reset & Basic Theme */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #071630; /* Deep dark blue */
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+    }
+
+    /* Navbar Styling */
+   /* Navbar styling similar to theme */
+.navbar {
+  background-color: #0f2239;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.navbar .links {
+  display: flex;
+}
+
+.navbar .links a {
+  margin-right: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.navbar .links a:hover {
+  color: #91BAD6;
+}
+
+.navbar .user {
+  background-color: #1c3c66;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+    /* Teams Section */
+    .teams-container {
+      padding: 60px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 50px auto;
+    }
+
+    .team-card {
+      background: #1d2a3b;
+      border-radius: 15px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      background-color: #2f3a4f;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .team-info {
+      text-align: center;
+      padding: 20px;
+      background-color: #0f2239;
+      border-top: 1px solid #2c3e50;
+    }
+
+    .team-name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #f9d949;
+    }
+
+    .titles-won {
+      font-size: 16px;
+      color: #91BAD6;
+      margin-bottom: 8px;
+    }
+
+    .title-years {
+      font-size: 14px;
+      color: #c7d9ed;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 15px;
+      }
+
+      .team-card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar Start -->
+  <div class="navbar">
+  <div class="links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('live_matches') }}">Live Matches</a>
+    <a href="{{ url_for('leaderboard_page') }}">Leaderboard</a>
+    <a href="{{ url_for('predictor') }}">IPL Predictor</a>
+    <a href="{{ url_for('teams_page') }}">IPL Teams</a>
+  </div>
+  <div class="user" id="userDisplay">User</div>
+</div>
+  <!-- Navbar End -->
+
+  <!-- Teams Section Start -->
+  <div class="teams-container">
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/csk.webp" alt="CSK">
+      <div class="team-info">
+        <div class="team-name">Chennai Super Kings</div>
+        <div class="titles-won">🏆 Titles Won: 5</div>
+        <div class="title-years">2010, 2011, 2018, 2021, 2023</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/mi.webp" alt="MI">
+      <div class="team-info">
+        <div class="team-name">Mumbai Indians</div>
+        <div class="titles-won">🏆 Titles Won: 5</div>
+        <div class="title-years">2013, 2015, 2017, 2019, 2020</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/rcb.webp" alt="RCB">
+      <div class="team-info">
+        <div class="team-name">Royal Challengers Bangalore</div>
+        <div class="titles-won">🏆 Titles Won: 0</div>
+        <div class="title-years">—</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/kkr.webp" alt="KKR">
+      <div class="team-info">
+        <div class="team-name">Kolkata Knight Riders</div>
+        <div class="titles-won">🏆 Titles Won: 2</div>
+        <div class="title-years">2012, 2014</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/dc1.webp" alt="DC">
+      <div class="team-info">
+        <div class="team-name">Delhi Capitals</div>
+        <div class="titles-won">🏆 Titles Won: 0</div>
+        <div class="title-years">—</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/rr1.jpeg" alt="RR">
+      <div class="team-info">
+        <div class="team-name">Rajasthan Royals</div>
+        <div class="titles-won">🏆 Titles Won: 1</div>
+        <div class="title-years">2008</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/srh.webp" alt="SRH">
+      <div class="team-info">
+        <div class="team-name">Sunrisers Hyderabad</div>
+        <div class="titles-won">🏆 Titles Won: 1</div>
+        <div class="title-years">2016</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/sg.avif" alt="LSG">
+      <div class="team-info">
+        <div class="team-name">Lucknow Super Giants</div>
+        <div class="titles-won">🏆 Titles Won: 0</div>
+        <div class="title-years">—</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/gt.webp" alt="GT">
+      <div class="team-info">
+        <div class="team-name">Gujarat Titans</div>
+        <div class="titles-won">🏆 Titles Won: 1</div>
+        <div class="title-years">2022</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <img src="/ipl_teams_img/pbks.jpg" alt="PBKS">
+      <div class="team-info">
+        <div class="team-name">Punjab Kings</div>
+        <div class="titles-won">🏆 Titles Won: 0</div>
+        <div class="title-years">—</div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Teams Section End -->
+<script>
+    const username = localStorage.getItem('username') || 'User';
+    document.getElementById('userDisplay').textContent = username;
+  </script>
+</body>
+</html>

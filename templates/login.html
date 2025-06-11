@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | IPL Predictor</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #071630; /* Deep dark blue */
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg-bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.27); /* Increased opacity */
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0.6; /* More visible */
+      }
+      50% {
+        opacity: 0.8; /* Fade effect */
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0.6;
+      }
+    }
+
+    .container {
+      background-color: #1d2a3b; /* Lighter blue-gray container */
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    form input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: 1px solid #1c3c66;
+      background-color: #1c3c66;
+      color: #e0e0e0;
+      font-size: 15px;
+      transition: border 0.2s ease;
+    }
+
+    form input:focus {
+      border: 1px solid #3a7bd5;
+      outline: none;
+    }
+
+    form input::placeholder {
+      color: #a5a5b0;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      background-color: #2f76b4; /* Medium blue button */
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #91BAD6; /* Slightly darker blue on hover */
+      color:black;
+
+    }
+
+     .user-icon {
+            margin-top: 200px;
+            width: 80px;
+            height: 80px;
+            background-color: #0a1930;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulseScale 2s infinite;
+        }
+
+  </style>
+</head>
+<body>
+
+  <!-- Bubble animation background -->
+  <div class="bg-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <!-- Login Container -->
+  <div class="container">
+    <div class="user-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <input type="password" id="password" placeholder="Enter your password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    // Handle login
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (name && email && password) {
+        localStorage.setItem('username', name);
+        window.location.href = "/home";
+      }
+    });
+
+    // Create random bubbles
+    document.addEventListener('DOMContentLoaded', function () {
+      const bubbles = document.querySelectorAll('.bubble');
+
+      bubbles.forEach((bubble) => {
+        const size = Math.random() * 100 + 40; // 40–120px
+        const left = Math.random() * 100; // percentage
+        const duration = Math.random() * 15 + 10; // 10–25s
+        const delay = Math.random() * 5; // 0–5s
+
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${left}%`;
+        bubble.style.animationDuration = `${duration}s`;
+        bubble.style.animationDelay = `${delay}s`;
+      });
+    });
+  </script>
+
+</body>
+</html>

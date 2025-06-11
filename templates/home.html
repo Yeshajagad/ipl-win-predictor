@@ -1,0 +1,1176 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPL Predictor - Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 30px;
+      height: 3px;
+      background-color: #3b82f6;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+
+    .main-content {
+  transition: opacity 0.3s ease;
+}
+
+.main-content.faded {
+  opacity: 0.1; /* faded when sidebar is open */
+  pointer-events: none; /* so you can't click the faded background */
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* semi-transparent black */
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 1000; /* behind sidebar but above main content */
+}
+
+/* Show overlay when active */
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+    /* Navbar styling similar to theme */
+.navbar {
+  background-color: #0f2239;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.navbar .links {
+ margin-left:45px;
+  display: flex;
+}
+
+.navbar .links a {
+  margin-right: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.navbar .links a:hover {
+  color: #91BAD6;
+}
+
+.navbar .user {
+  background-color: #1c3c66;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+    .side-navbar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 275px;
+      height: 100%;
+      background-color: #1e293b;
+      padding: 60px 20px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .side-navbar.open {
+      left: 2px;
+    }
+
+<!--    .side-navbar a {-->
+<!--      display: block;-->
+<!--      color: #ffffff;-->
+<!--      text-decoration: none;-->
+<!--      font-size: 18px;-->
+<!--      margin-bottom: 20px;-->
+<!--      font-weight: 600;-->
+<!--    }-->
+
+<!--    .side-navbar a:hover {-->
+<!--      color: #60a5fa;-->
+<!--&lt;!&ndash;      color: #3b82f6;&ndash;&gt;-->
+
+<!--    }-->
+
+.side-navbar a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 12px 0; /* better vertical spacing */
+  padding: 10px 15px; /* some padding inside links */
+  border-radius: 8px; /* slight rounding for better look */
+  transition: background-color 0.3s, color 0.3s; /* smooth hover effect */
+}
+
+/* Optional: Add a nice hover effect */
+.side-navbar a:hover {
+  background-color: #ffffff;
+  color: #1e1e1e; /* dark text on hover */
+}
+
+
+
+    .hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+  background: #1e3a8a; /* <-- Choose any color from the table */
+  color: #f8fafc;
+}
+
+
+    .hero h1 {
+      font-size: 3.2em;
+      margin-bottom: 0.4em;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+
+    .sections {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 50px 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 25px;
+  width: 300px;
+  border-radius: 20px;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: #60a5fa;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.card a:hover {
+  background: #2563eb;
+}
+
+/* Hover animation for the card */
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Add floating shine animation */
+.card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: rotate(25deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: rotate(25deg) translate(-100%, -100%);
+  }
+  50% {
+    transform: rotate(25deg) translate(100%, 100%);
+  }
+  100% {
+    transform: rotate(25deg) translate(-100%, -100%);
+  }
+}
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #1e293b;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .navbar {
+  background-color: #1a1d29; /* Same dark color as header */
+}
+
+.sidebar {
+  background-color: #1a1d29; /* Match it exactly */
+  height: 100vh; /* Full viewport height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Or whatever your sidebar width is */
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1; /* This will push footer to bottom */
+}
+
+footer {
+  background-color: #1a1d29; /* Footer color */
+  text-align: center;
+  padding: 10px;
+  color: #ccc;
+}
+    <!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">IPL Predictor 2025</h1>
+    <p class="hero-subtitle">Predict. Compete. Win.</p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <span class="stat-number">10</span>
+        <span class="stat-label">Teams</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">74</span>
+        <span class="stat-label">Matches</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">1</span>
+        <span class="stat-label">Champion</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="/predictor" class="cta-button primary">Make Predictions</a>
+      <a href="/live_matches" class="cta-button secondary">Live Matches</a>
+    </div>
+  </div>
+  <div class="hero-animation">
+    <div class="cricket-ball"></div>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">IPL Predictor 2025</h1>
+    <p class="hero-subtitle">Predict. Compete. Win.</p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <span class="stat-number">10</span>
+        <span class="stat-label">Teams</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">74</span>
+        <span class="stat-label">Matches</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">1</span>
+        <span class="stat-label">Champion</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="/predictor" class="cta-button primary">Make Predictions</a>
+      <a href="/live_matches" class="cta-button secondary">Live Matches</a>
+    </div>
+  </div>
+
+  <!-- Cricket Animation Scene -->
+  <div class="cricket-scene">
+    <!-- Cricket Stumps -->
+    <div class="stumps">
+      <div class="stump stump-1"></div>
+      <div class="stump stump-2"></div>
+      <div class="stump stump-3"></div>
+      <div class="bails bail-1"></div>
+      <div class="bails bail-2"></div>
+    </div>
+
+    <!-- Cricket Bat -->
+    <div class="bat"></div>
+
+    <!-- Cricket Ball -->
+    <div class="ball"></div>
+
+    <!-- Flying Stump -->
+    <div class="flying-stump"></div>
+
+    <!-- Stadium Lights -->
+    <div class="stadium-lights light-1"></div>
+    <div class="stadium-lights light-2"></div>
+
+    <!-- Crowd Cheering Effect -->
+    <div class="crowd-wave"></div>
+  </div>
+</div>
+
+  .her0 {
+    text-align: center;
+    padding: 80px 20px 120px;
+    background: radial-gradient(ellipse at center, #2563eb 0%, #1e40af 40%, #0f2555 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Add pitch texture overlay */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.6;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    animation: fadeIn 1s ease-out;
+  }
+
+  .hero-title {
+    font-size: 4em;
+    margin-bottom: 0.2em;
+    background: linear-gradient(90deg, #ffffff, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+    animation: titleGlow 3s infinite alternate;
+  }
+
+  .hero-subtitle {
+    font-size: 1.6em;
+    font-weight: 500;
+    margin-bottom: 40px;
+    color: #bfdbfe;
+    text-shadow: 0 0 15px rgba(147, 197, 253, 0.7);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(30, 58, 138, 0.3);
+    padding: 15px 30px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(147, 197, 253, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #f8fafc;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  .stat-label {
+    font-size: 1em;
+    color: #93c5fd;
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .cta-button {
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .cta-button.primary {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+  }
+
+  .cta-button.primary:hover {
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.7);
+  }
+
+  .cta-button.primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+  }
+
+  .cta-button.primary:hover::after {
+    left: 100%;
+    animation: shine 1.5s infinite;
+  }
+
+  .cta-button.secondary {
+    background-color: transparent;
+    color: #dbeafe;
+    border: 2px solid #60a5fa;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .cta-button.secondary:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  /* Cricket Animation Scene */
+  .cricket-scene {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    z-index: 3;
+    margin-bottom :350px;
+  }
+
+  /* Stumps */
+  .stumps {
+    position: absolute;
+    bottom: 0;
+    right: 20%;
+    height: 90px;
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 4;
+  }
+
+  .stump {
+    width: 10px;
+    background: linear-gradient(to bottom, #f1f5f9, #cbd5e1);
+    position: relative;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .stump-1 {
+    height: 85px;
+    animation: stumpShake 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  .stump-2 {
+    height: 90px;
+    animation: stumpShake 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  .stump-3 {
+    height: 85px;
+    animation: flyAway 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  .bails {
+    position: absolute;
+    width: 25px;
+    height: 5px;
+    background: linear-gradient(to bottom, #f1f5f9, #cbd5e1);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .bail-1 {
+    top: -5px;
+    left: 0;
+    animation: bailFlyLeft 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  .bail-2 {
+    top: -5px;
+    right: 0;
+    animation: bailFlyRight 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  /* Cricket Bat */
+  .bat {
+    position: absolute;
+    bottom: 50px;
+    left: 25%;
+    width: 15px;
+    height: 120px;
+    background: linear-gradient(to bottom, #a16207, #ca8a04);
+    border-radius: 5px 5px 0 0;
+    transform: rotate(45deg);
+    transform-origin: bottom;
+    z-index: 5;
+    animation: batSwing 6s infinite;
+  }
+
+  .bat::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    width: 35px;
+    height: 45px;
+    background: linear-gradient(to bottom, #a16207, #ca8a04);
+    border-radius: 5px;
+  }
+
+  .bat::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: -2px;
+    width: 19px;
+    height: 25px;
+    background: #334155;
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* Cricket Ball */
+  .ball {
+    position: absolute;
+    bottom: 70px;
+    left: 45%;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #ef4444 30%, #b91c1c 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.4);
+    z-index: 6;
+    animation: ballMove 6s infinite;
+    margin-left: 520px;
+  }
+
+  .ball::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 4px;
+    background: #7f1d1d;
+    border-radius: 5px;
+    top: 8px;
+    left: 1px;
+    transform: rotate(30deg);
+  }
+
+  /* Flying Stump */
+  .flying-stump {
+    position: absolute;
+    bottom: 90px;
+    right: 20%;
+    width: 10px;
+    height: 85px;
+    background: linear-gradient(to bottom, #f1f5f9, #cbd5e1);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    z-index: 3;
+    animation: stumpFly 6s infinite;
+    animation-delay: 2.8s;
+  }
+
+  /* Stadium Lights */
+  .stadium-lights {
+    position: absolute;
+    width: 150px;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    filter: blur(5px);
+    animation: lightFlash 6s infinite;
+    opacity: 0;
+  }
+
+  .light-1 {
+    top: -100px;
+    left: 20%;
+    transform: rotate(45deg);
+    animation-delay: 3s;
+  }
+
+  .light-2 {
+    top: -100px;
+    right: 20%;
+    transform: rotate(-45deg);
+    animation-delay: 3s;
+  }
+
+  /* Crowd Wave Effect */
+  .crowd-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1));
+    z-index: 2;
+    animation: crowdWave 1.5s infinite ease-in-out;
+  }
+
+  .crowd-wave::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(59, 130, 246, 0.5);
+    filter: blur(2px);
+  }
+
+  /* Animation Keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes titleGlow {
+    0% { text-shadow: 0 0 5px rgba(147, 197, 253, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(147, 197, 253, 0.8), 0 0 30px rgba(59, 130, 246, 0.5); }
+  }
+
+  @keyframes batSwing {
+    0%, 40%, 100% { transform: rotate(45deg); }
+    45%, 55% { transform: rotate(110deg); }
+    60% { transform: rotate(70deg); }
+    65% { transform: rotate(50deg); }
+  }
+
+  <!--/* Ball hitting the stumps - smoother and slower */-->
+@keyframes ballMove {
+  0%   { left: 10%; bottom: 120px; }
+  100% { left: 47%; bottom: 60px; }
+}
+
+
+  @keyframes stumpShake {
+    0%, 40%, 100% { transform: rotate(0deg); }
+    45%, 50% { transform: rotate(-5deg); }
+    55%, 60% { transform: rotate(5deg); }
+    65%, 70% { transform: rotate(-3deg); }
+    75%, 80% { transform: rotate(0deg); }
+  }
+
+  @keyframes flyAway {
+    0%, 45% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
+    50%, 55% { transform: translateX(10px) translateY(-10px) rotate(10deg); opacity: 1; }
+    60%, 65% { transform: translateX(20px) translateY(-15px) rotate(20deg); opacity: 0; }
+    70%, 100% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
+  }
+
+  @keyframes stumpFly {
+    0%, 45% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
+    50%, 55% { transform: translateX(30px) translateY(-30px) rotate(45deg); opacity: 1; }
+    60%, 65% { transform: translateX(60px) translateY(-20px) rotate(90deg); opacity: 1; }
+    70%, 75% { transform: translateX(90px) translateY(0px) rotate(180deg); opacity: 1; }
+    80%, 85% { transform: translateX(120px) translateY(20px) rotate(270deg); opacity: 0.5; }
+    90%, 100% { transform: translateX(150px) translateY(40px) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes bailFlyLeft {
+    0%, 45% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
+    50%, 55% { transform: translateX(-20px) translateY(-40px) rotate(-45deg); opacity: 1; }
+    60%, 65% { transform: translateX(-40px) translateY(-20px) rotate(-90deg); opacity: 1; }
+    70%, 75% { transform: translateX(-60px) translateY(0) rotate(-135deg); opacity: 0.5; }
+    80%, 100% { transform: translateX(-80px) translateY(20px) rotate(-180deg); opacity: 0; }
+  }
+
+  @keyframes bailFlyRight {
+    0%, 45% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
+    50%, 55% { transform: translateX(20px) translateY(-40px) rotate(45deg); opacity: 1; }
+    60%, 65% { transform: translateX(40px) translateY(-20px) rotate(90deg); opacity: 1; }
+    70%, 75% { transform: translateX(60px) translateY(0) rotate(135deg); opacity: 0.5; }
+    80%, 100% { transform: translateX(80px) translateY(20px) rotate(180deg); opacity: 0; }
+  }
+
+  @keyframes lightFlash {
+    0%, 40% { opacity: 0; }
+    50%, 60% { opacity: 0.7; }
+    65%, 70% { opacity: 0.3; }
+    75%, 80% { opacity: 0.5; }
+    85%, 90% { opacity: 0.2; }
+    95%, 100% { opacity: 0; }
+  }
+
+  @keyframes crowdWave {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 3em;
+    }
+
+    .hero-stats {
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat-box {
+      padding: 12px 20px;
+      min-width: 100px;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cta-button {
+      width: 80%;
+    }
+
+    .bat {
+      left: 15%;
+    }
+
+    .stumps {
+      right: 15%;
+    }
+  }
+
+
+    /* Crowd Wave Effect */
+/* Crowd Wave Effect */
+.crowd-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 1));
+  z-index: 2;
+  animation: crowdWave 1.5s infinite ease-in-out;
+}
+
+.crowd-wave::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: rgba(59, 130, 246, 0.5);
+  filter: blur(2px);
+}
+
+/* Crowd Tags */
+.crowd-tags {
+  position: absolute;
+  bottom: 120px; /* move up above stump */
+  left: 60%;
+  transform: translateX(-50%);
+  z-index: 3;
+  position: absolute;
+}
+
+/* Common styles for each tag */
+.cheer-tag {
+  position: absolute;
+  font-size: 1.8rem;
+  font-weight: bold;
+  opacity: 0;
+  animation: cheerRise 5s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+/* Different positions and colors for scattering */
+.cheer-tag:nth-child(1) {
+  color: #facc15; /* Yellow */
+  left: 100px;
+  top: -100px;
+  animation-delay: 2.5s; /* Wait after stumping */
+}
+.cheer-tag:nth-child(2) {
+  color: #38bdf8; /* Sky Blue */
+  left: 70px;
+  top: -230px;
+  animation-delay: 2.9s;
+}
+.cheer-tag:nth-child(3) {
+  color: #34d399; /* Green */
+  left: 280px;
+  top: -320px;
+  animation-delay: 3.3s;
+}
+.cheer-tag:nth-child(4) {
+  color: #f472b6; /* Pink */
+  left: 350px;
+  top: -160px;
+  animation-delay: 3.7s;
+}
+.cheer-tag:nth-child(5) {
+  color: #f87171; /* Red */
+  left: -190px;
+  top: -140px;
+  animation-delay: 4.1s;
+}
+.cheer-tag:nth-child(6) {
+  color: #c084fc; /* Purple */
+  left: 0px;
+  top: -190px;
+  animation-delay: 4.6s;
+}
+
+/* Animation Keyframes */
+@keyframes cheerRise {
+  0% {
+    transform: translateY(20px) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-80px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Crowd Wave Animation (optional) */
+@keyframes crowdWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <!-- Side Navbar -->
+<div class="side-navbar" id="sideNavbar">
+  <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('live_matches') }}">Live Matches</a>
+    <a href="{{ url_for('predictor') }}">IPL Predictor</a>
+    <a href="{{ url_for('leaderboard_page') }}">Leaderboard</a>
+    <a href="{{ url_for('teams_page') }}">IPL Teams</a>
+</div>
+<!-- Background Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-content" id="mainContent">
+  <!-- Top Navbar -->
+<div class="navbar">
+  <div class="links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('live_matches') }}">Live Matches</a>
+    <a href="{{ url_for('leaderboard_page') }}">Leaderboard</a>
+    <a href="{{ url_for('predictor') }}">IPL Predictor</a>
+    <a href="{{ url_for('teams_page') }}">IPL Teams</a>
+  </div>
+  <div class="user" id="userDisplay">User</div>
+</div>
+
+
+
+
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">IPL Predictor 2025</h1>
+    <p class="hero-subtitle">Predict. Compete. Win.</p>
+    <div class="hero-stats">
+  <div class="stat-box">
+    <span class="stat-number" data-target="10">0</span>
+    <span class="stat-label">Teams</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number" data-target="74">0</span>
+    <span class="stat-label">Matches</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-number" data-target="1">0</span>
+    <span class="stat-label">Champion</span>
+  </div>
+</div>
+
+    <div class="hero-cta">
+      <a href="/predictor" class="cta-button primary">Make Predictions</a>
+      <a href="/live_matches" class="cta-button secondary">Live Matches</a>
+    </div>
+  </div>
+
+  <!-- Cricket Animation Scene -->
+  <div class="cricket-scene">
+    <!-- Cricket Stumps -->
+    <div class="stumps">
+      <div class="stump stump-1"></div>
+      <div class="stump stump-2"></div>
+      <div class="stump stump-3"></div>
+      <div class="bails bail-1"></div>
+      <div class="bails bail-2"></div>
+    </div>
+
+    <!-- Cricket Bat -->
+<!--    <div class="bat"></div>-->
+
+    <!-- Cricket Ball -->
+    <div class="ball"></div>
+
+    <!-- Flying Stump -->
+    <div class="flying-stump"></div>
+
+    <!-- Stadium Lights -->
+    <div class="stadium-lights light-1"></div>
+    <div class="stadium-lights light-2"></div>
+
+    <!-- Crowd Cheering Effect -->
+    <div class="crowd-wave"></div>
+
+<div class="crowd-tags">
+  <div class="cheer-tag">Wah Bhai Wah!</div>
+  <div class="cheer-tag">Kya Baat Hai!</div>
+  <div class="cheer-tag">Outttt!!</div>
+  <div class="cheer-tag">Balle Balle!</div>
+  <div class="cheer-tag">Zor Daar Taliyan!</div>
+  <div class="cheer-tag">Jeetega Bhai Jeetega!</div>
+</div>
+
+
+  </div>
+</div>
+
+
+
+<!-- Team Logos Section -->
+  <div style="
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    background: black;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+">
+
+<!--  <img src="/ipl_teams_img/csk.webp" alt="CSK" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/mi.webp" alt="MI" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/rcb.webp" alt="RCB" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/kkr.webp" alt="KKR" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/dc1.webp" alt="DC" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/rr1.jpeg" alt="RR" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/srh.webp" alt="SRH" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/sg.avif" alt="LSG" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/gt.webp" alt="GT" width="800" height="650">-->
+<!--  <img src="/ipl_teams_img/pbks.jpg" alt="PBKS" width="800" height="650">-->
+</div>
+
+  <!-- Cards Section -->
+  <div class="sections">
+  <div class="card">
+    <h3>Live Matches</h3>
+    <p>Stay updated with real-time IPL scores and team stats.</p>
+    <a href="/live_matches">Check Now</a>
+  </div>
+
+  <div class="card">
+    <h3>AI Predictor</h3>
+    <p>Predict outcomes using machine learning models trained on IPL data.</p>
+    <a href="/predictor">Start Predicting</a>
+  </div>
+
+  <div class="card">
+    <h3>Leaderboard</h3>
+    <p>See where you rank among top predictors and improve your streak!</p>
+    <a href="/leaderboard_page"> View Leaderboard</a>
+  </div>
+
+  <div class="card">
+    <h3>IPL Teams</h3>
+    <p>Explore all your favorite IPL teams, players, and their stats!</p>
+    <a href="{{ url_for('teams_page') }}">View Teams</a>
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <div class="footer">
+    Made with 💙 for IPL fans | © 2025 IPL Predictor Inc.
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const username = localStorage.getItem('username') || 'User';
+    document.getElementById('userDisplay').textContent = username;
+
+    function toggleMenu() {
+      const sidebar = document.getElementById('sideNavbar');
+      sidebar.classList.toggle('open');
+    }
+
+    function animateStats() {
+  const numbers = document.querySelectorAll('.stat-number');
+
+  numbers.forEach(num => {
+    const target = +num.getAttribute('data-target');
+    let count = 0;
+    const duration = 4000; // 1.5 seconds for full animation
+    const intervalTime = Math.max(10, duration / target);
+
+    const updateCount = setInterval(() => {
+      if (count < target) {
+        count++;
+        num.textContent = count;
+      } else {
+        clearInterval(updateCount);
+      }
+    }, intervalTime);
+  });
+}
+
+// First run
+animateStats();
+
+// Run again every few seconds
+setInterval(() => {
+  // Reset numbers to 0 first
+  document.querySelectorAll('.stat-number').forEach(num => {
+    num.textContent = '0';
+  });
+  // Start animation again
+  animateStats();
+}, 7000); // every 5 seconds (1.5s animation + 3.5s hold)
+
+    function openSidebar() {
+    document.getElementById("sideNavbar").style.left = "0"; // or however you open it
+    document.getElementById("mainContent").classList.add("faded");
+  }
+
+  function closeSidebar() {
+    document.getElementById("sideNavbar").style.left = "-250px"; // or hide it
+    document.getElementById("mainContent").classList.remove("faded");
+  }
+
+
+  </script>
+</div>
+
+</body>
+</html>
